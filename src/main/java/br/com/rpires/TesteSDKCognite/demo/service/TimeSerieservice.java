@@ -1,8 +1,10 @@
 package br.com.rpires.TesteSDKCognite.demo.service;
 
 import br.com.rpires.TesteSDKCognite.demo.dto.AssetDTO;
+import br.com.rpires.TesteSDKCognite.demo.dto.TimeSeriesDTO;
 import com.cognite.client.CogniteClient;
 import com.cognite.client.dto.Asset;
+import com.cognite.client.dto.TimeseriesMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,19 +13,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CogniteService {
+public class TimeSerieservice {
 
-    @Autowired
     private CogniteClient client;
 
-    public List<AssetDTO> getAssets() throws Exception {
+    @Autowired
+    public TimeSerieservice(CogniteClient client) {
+        this.client = client;
+    }
 
-        List<Asset> listAssetsResults = new ArrayList<>();
-        client.assets()
+    public List<TimeSeriesDTO> getTimeSeries() throws Exception {
+
+        List<TimeseriesMetadata> listAssetsResults = new ArrayList<>();
+
+        client.timeseries()
                 .list()
                 .forEachRemaining(assetBatch -> listAssetsResults.addAll(assetBatch));
 
-        List<AssetDTO> listDTO = listAssetsResults.stream().map(AssetDTO::new).collect(Collectors.toList());
+        List<TimeSeriesDTO> listDTO = listAssetsResults.stream().map(TimeSeriesDTO::new).collect(Collectors.toList());
         return listDTO;
     }
 

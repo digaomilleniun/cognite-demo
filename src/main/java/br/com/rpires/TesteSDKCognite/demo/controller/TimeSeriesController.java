@@ -1,8 +1,9 @@
 package br.com.rpires.TesteSDKCognite.demo.controller;
 
 import br.com.rpires.TesteSDKCognite.demo.dto.EventDTO;
-import br.com.rpires.TesteSDKCognite.demo.service.AssetService;
+import br.com.rpires.TesteSDKCognite.demo.dto.TimeSeriesDTO;
 import br.com.rpires.TesteSDKCognite.demo.service.EventService;
+import br.com.rpires.TesteSDKCognite.demo.service.TimeSerieservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("event")
-public class EventController {
+@RequestMapping("timeSeries")
+public class TimeSeriesController {
 
     @Autowired
-    private EventService cogniteService;
+    private TimeSerieservice cogniteService;
 
     @GetMapping
-    public ResponseEntity<List<EventDTO>> getEvents() throws Exception {
-        return ResponseEntity.ok(cogniteService.getEvents());
+    public ResponseEntity<List<TimeSeriesDTO>> getEvents() throws Exception {
+        return ResponseEntity.ok(cogniteService.getTimeSeries());
     }
 }
