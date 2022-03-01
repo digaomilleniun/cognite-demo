@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class _3DModelRevisionItemLogDTO {
 
-    private Integer timestamp;
+    private Long timestamp;
 
     private Integer severity;
 
