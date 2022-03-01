@@ -22,7 +22,8 @@ public class LoginService {
 //        LoginStatus login = this.client.loginStatusByApiKey();
 //        return new LoginStatusDTO(login);
 
-        LoginStatus login = this.client.login().loginStatusByApiKey();
-        return new LoginStatusDTO(login);
+//        LoginStatus login = this.client.login().loginStatusByApiKey();
+//        return new LoginStatusDTO(login);
+        return null;
     }
 }

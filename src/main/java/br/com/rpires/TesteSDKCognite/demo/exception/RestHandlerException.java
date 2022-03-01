@@ -15,4 +15,12 @@ public class RestHandlerException extends ResponseEntityExceptionHandler {
         api.setStatus(e.getHttpStatus());
         return new ResponseEntity<>(api, api.getStatus());
     }
+
+    @ExceptionHandler({IntegrationException.class})
+    public ResponseEntity<Object> handleIntegrationException(IntegrationException e) {
+        ApiError api = new ApiError();
+        api.setMessage(e.getMessage());
+        api.setStatus(e.getHttpStatus());
+        return new ResponseEntity<>(api, api.getStatus());
+    }
 }
