@@ -83,6 +83,17 @@ public class _3DModelRevisionService {
         }
     }
 
+    public void updateRevisionThumbnail(Long modelId, Long revisionId, Long thumbnailId) {
+        try {
+            client.threeD()
+                    .models()
+                    .revisions()
+                    .updateThumbnail(modelId, revisionId, thumbnailId);
+        } catch (Exception e) {
+            throw new IntegrationException("ERROR DELETING ThreeDModelRevision ", e);
+        }
+    }
+
     private List<ThreeDModelRevision> getThreeDModelRevisions(Long modelId, Request request) throws Exception {
         List<ThreeDModelRevision> list = new ArrayList<>();
         client.threeD()

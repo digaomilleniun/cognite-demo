@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("3dModel")
+@RequestMapping("3d/models")
 public class _3DModelController {
 
     @Autowired
@@ -49,27 +49,4 @@ public class _3DModelController {
         return ResponseEntity.ok(modelService.delete(items));
     }
 
-    /**
-    @GetMapping(value = "/{modelId}/revisions")
-    public ResponseEntity<List<_3DModelRevisionDTO>> get3DModels(@PathVariable Long modelId) throws Exception {
-        return ResponseEntity.ok(revisionService.getList(modelId));
-    }
-
-    @PostMapping(value = "/{modelId}/revisions/retrieve")
-    public ResponseEntity<List<_3DModelRevisionDTO>> retrieveRevisions(@PathVariable Long modelId,
-                                                                       @RequestBody List<Item> items) throws Exception {
-        return ResponseEntity.ok(revisionService.retrieve(modelId, items));
-    }
-
-    //TODO falta fazer
-    @PostMapping(value = "/{modelId}/revisions/filter")
-    public ResponseEntity<List<_3DModelRevisionDTO>> filter(@RequestBody _3DModelRevisionFilter filter) throws Exception {
-        return ResponseEntity.ok(revisionService.filter(filter));
-    }
-
-    @PostMapping(value = "/{modelId}/revisions")
-    public ResponseEntity<List<_3DModelRevisionDTO>> create3DRevisions(@PathVariable Long modelId,
-                                                                          @RequestBody List<_3DModelRevisionDTO> items) throws Exception {
-        return ResponseEntity.ok(revisionService.upsert(modelId, items));
-    }**/
 }
