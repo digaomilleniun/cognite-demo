@@ -2,6 +2,7 @@ package br.com.rpires.TesteSDKCognite.demo.dto;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BoundingBoxDTO {
 
-    private List<Double> max = null;
+    private List<Double> max = new ArrayList<>();
 
-    private List<Double> min = null;
+    private List<Double> min = new ArrayList<>();
 }

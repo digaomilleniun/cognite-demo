@@ -24,8 +24,9 @@ public class _3DAssetMappingsController {
                                                                 @PathVariable(required = true) Long revisionId,
                                                                 @RequestParam(required = false) Long nodeId,
                                                                 @RequestParam(required = false) Long assetId,
-                                                                @RequestParam(required = false) BoundingBoxDTO intersectsBoundingBox) throws Exception {
-        return ResponseEntity.ok(mappingsService.getAssetMappings(modelId, revisionId));
+                                                                @RequestParam(required = false) List<Double> min,
+                                                                @RequestParam(required = false) List<Double> max) throws Exception {
+        return ResponseEntity.ok(mappingsService.getAssetMappings(modelId, revisionId, nodeId, assetId, min, max));
     }
 
     @PostMapping(value = "/{modelId}/revisions/{revisionId}/mappings")

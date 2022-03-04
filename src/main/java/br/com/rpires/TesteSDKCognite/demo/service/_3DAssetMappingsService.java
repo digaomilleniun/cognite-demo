@@ -6,6 +6,7 @@ import br.com.rpires.TesteSDKCognite.demo.exception.IntegrationException;
 import com.cognite.client.CogniteClient;
 import com.cognite.client.Request;
 import com.cognite.client.dto.ThreeDAssetMapping;
+import com.cognite.client.dto.ThreeDNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,20 +24,43 @@ public class _3DAssetMappingsService {
         this.client = client;
     }
 
-    public _3DAssetMappingsDTO getAssetMappings(Long modelId, Long revisionId) {
+    public _3DAssetMappingsDTO getAssetMappings(Long modelId, Long revisionId, Long nodeId, Long assetId,
+                                                List<Double> min, List<Double> max) {
         try {
+            Request request = createRequest(nodeId, assetId, min, max);
             List<ThreeDAssetMapping> list = new ArrayList<>();
             client.threeD()
                     .models()
                     .revisions()
                     .assetMappings()
-                    .list(modelId, revisionId)
+                    .list(modelId, revisionId, request)
                     .forEachRemaining(n -> list.addAll(n));
 
             return convertToDTO(list);
         } catch (Exception e) {
             throw new IntegrationException("ERROR LISTING ThreeDNodes ", e);
         }
+    }
+
+    private Request createRequest(Long nodeId, Long assetId, List<Double> min, List<Double> max) {
+        Request request = Request.create();
+        if (nodeId != null) {
+            request = request.withRootParameter("nodeId", nodeId);
+        }
+        if (assetId != null) {
+            request = request.withRootParameter("assetId", assetId);
+        }
+        if ((min != null && !min.isEmpty()) || (max != null && !max.isEmpty())) {
+            ThreeDNode.BoundingBox.Builder builder = ThreeDNode.BoundingBox.newBuilder();
+            if ((min != null && !min.isEmpty())) {
+                min.forEach(m -> builder.addMin(m));
+            }
+            if ((max != null && !max.isEmpty())) {
+                max.forEach(m -> builder.addMax(m));
+            }
+            request = request.withRootParameter("intersectsBoundingBox", builder.build());
+        }
+        return request;
     }
 
     public _3DAssetMappingsDTO createAssetMappings(Long modelId, Long revisionId, Create3DAssetMappingsDTO assetMappings) {
